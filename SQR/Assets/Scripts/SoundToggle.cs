@@ -15,12 +15,16 @@ public class SoundToggle : MonoBehaviour {
 		ToggleSprite();
 	}
 	
+	// Switches the audio sprite between on and off
 	public void ToggleSprite() {
 		if (PlayerPrefsX.GetBool("SoundOn")) {
+			Debug.Log("sprite on");
 			myBtn.sprite = AudioOn;
 		}
-		else 
+		else {
+			Debug.Log("sprite off");
 			myBtn.sprite = AudioOff;
+		}
 	}
 
 	// Update is called once per frame

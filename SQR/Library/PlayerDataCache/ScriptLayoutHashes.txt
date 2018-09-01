@@ -1,9 +1,10 @@
 Android
 PlayerPath?
-D:/Unity/SQR/Builds/SQR.apk
+D:/Unity/Projects/SQR- A Game/SQR/Builds/SQR.apk
 SceneListBegin?
 Assets/Scenes/Menu.unity
 Assets/Scenes/2x2.unity
+Assets/Scenes/Tutorial.unity
 SceneListEnd?
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
 cf455f7a806648c6ed4c7d3e3f8a0e03 UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationTrack
@@ -173,3 +174,7 @@ b0803f7aceba8cd72427525e34bc8c8c Assembly-CSharp.dll:.AdManager
 a8e970e73d5fdf53a4665707fcc12701 Assembly-CSharp.dll:.DynamicShadow
 4b8ae3985160b2720d77ccffed34e531 Assembly-CSharp.dll:.DifficultyManager
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.ArrowManager
+eb5fdab1ad5b818b6477777038b2735d Assembly-CSharp.dll:.ScrollManager
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.TutorialCube
+d513c9dcffa52e052e0a7e05f359e1c3 Assembly-CSharp.dll:.Tutorial
+7e45113306382cbc7a85652624bce462 Assembly-CSharp.dll:.TutorialTime

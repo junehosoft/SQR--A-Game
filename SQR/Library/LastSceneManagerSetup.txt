@@ -2,6 +2,9 @@ sceneSetups:
 - path: Assets/Scenes/2x2.unity
   isLoaded: 0
   isActive: 0
+- path: Assets/Scenes/Tutorial.unity
+  isLoaded: 0
+  isActive: 0
 - path: Assets/Scenes/Menu.unity
   isLoaded: 1
   isActive: 1

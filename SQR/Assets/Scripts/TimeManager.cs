@@ -106,6 +106,7 @@ public class TimeManager : MonoBehaviour {
 		while (displayTime < activeTime) {
 			displayTime += maxTime/45.0f;
 			SetTimer();
+			//Debug.Log(displayTime);
 			yield return new WaitForSeconds(0.0167f);
 		}
 	}
