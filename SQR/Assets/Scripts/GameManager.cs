@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour {
 	public Button rewindBtn;
 	public Text rewindText;
 	public GameObject cover;
+    public GameObject randomText;
 
 	// Is it the player's turn?
 	[HideInInspector] public bool playerTurn;		
@@ -32,14 +33,14 @@ public class GameManager : MonoBehaviour {
 	[HideInInspector]
 	public List<CubeManager> myCubes;	// Holds all cubemanager instances
 
-	private bool displayingMoves;   // 
-	private bool gameOver;
+	private bool displayingMoves;   // is the game displaying the moves to the player?
+	private bool gameOver;          // is the game over?
 
-	private float speedMod = 0.5f;
+	private float speedMod = 0.5f;      
 
-	private Color textColor;
+	private Color textColor;        // initial color of the text
 
-	const int COUNT = 4;	// NUmber of directions is always 4
+	const int COUNT = 4;	// Number of directions is always 4
 	
 	// Use this for initialization
 	void Awake () {
@@ -89,7 +90,7 @@ public class GameManager : MonoBehaviour {
 		}
 		//RandomList(myLength);
 		AddToList();
-		StartCoroutine(DisplayMoves());
+		StartCoroutine(DisplayMoves(false));
 	}
 	
 	// Call this to add the passed cube to list of cube objects
@@ -103,14 +104,14 @@ public class GameManager : MonoBehaviour {
 		turnText.text = turns.ToString();
 	}
 
-	// Show the moves the player has to copy
-	IEnumerator DisplayMoves() {
+	// Show the moves the player has to copy, if rewind is true never randomize
+	IEnumerator DisplayMoves(bool rewind) {
 		displayingMoves = true;
 
 		turnText.color = textColor;
 		turns = 0;
 		UpdateTurns();
-		yield return StartCoroutine(TimeManager.myTimer.resetTime());
+		yield return StartCoroutine(TimeManager.myTimer.ResetTime());
 		yield return new WaitForSeconds(1.0f);
 		// yield return new WaitForSeconds(displayDelay);
 		for (int i = 0; i < myLength; i++) {
@@ -124,9 +125,8 @@ public class GameManager : MonoBehaviour {
 
 		Debug.Log("Done displaying");
 		
-		if (isRandom()) {
+		if (!rewind && isRandom())
 			StartCoroutine(Randomize());
-		}
 		else {
 			StartPlayer();
 		}
@@ -155,11 +155,15 @@ public class GameManager : MonoBehaviour {
 
 	// covers the board and randomize the cube position
 	IEnumerator Randomize() {
+        yield return new WaitForSeconds(0.4f);
 		cover.SetActive(true);
+        SoundManager.instance.Play("hide");
+        GameObject t = Instantiate(randomText, cover.transform);
 		myBoard.RandomPositions();
-		yield return new WaitForSeconds(0.5f);
+		yield return new WaitForSeconds(1.0f);
 		cover.SetActive(false);
-		StartPlayer();
+        Destroy(t);
+        StartPlayer();
 	}
 
 	//enables player turn
@@ -173,7 +177,8 @@ public class GameManager : MonoBehaviour {
 	// Ends the player turn after all correct inputs
 	public void EndPlayer() {
 		myScore.AddScore(myLength);
-		TimeManager.myTimer.resetTime();
+        TimeManager.myTimer.MinusMax();
+		TimeManager.myTimer.ResetTime();
 		speedMod += increment;
 		if (myLength >= 15) 
 			increment = 0.01f;
@@ -239,7 +244,7 @@ public class GameManager : MonoBehaviour {
 		UpdateRewind();
 		playerTurn = false;
 		turnIndex = 0;
-		StartCoroutine(DisplayMoves());
+		StartCoroutine(DisplayMoves(true));
 	}
 
 	// Game Over, prepares reset
@@ -257,6 +262,7 @@ public class GameManager : MonoBehaviour {
 	public void Reset() {
 		gameOver = false;
 		goPanel.SetActive(false);
+        myBoard.ResetPositions();
 		foreach (CubeManager c in myCubes) {
 			c.CubeAway();
 		}
@@ -267,6 +273,7 @@ public class GameManager : MonoBehaviour {
 		turnIndex = 0;
 		rewinds = 3;
 		UpdateRewind();
+        TimeManager.myTimer.ResetMax();
 	}
 
 	// Starts the game where the player got a game over
@@ -280,6 +287,6 @@ public class GameManager : MonoBehaviour {
 		turnIndex = 0;
 		rewinds += 1;
 		UpdateRewind();
-		StartCoroutine(DisplayMoves());
+		StartCoroutine(DisplayMoves(false));
 	}
 }

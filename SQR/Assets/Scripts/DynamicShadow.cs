@@ -18,7 +18,6 @@ public class DynamicShadow : MonoBehaviour {
 	private bool isText = false;
 	private bool isSprite = false;
 	private bool inTransition = false;
-	//private float mult;
 
 	private float t;
 	private Color oldCol;
@@ -80,6 +79,7 @@ public class DynamicShadow : MonoBehaviour {
 		}
 	}
 
+    // Prepares the shadow for image component
 	void SetImage() {
 		isImage = true;
 		myImage = shadow.AddComponent<Image>();
@@ -89,6 +89,7 @@ public class DynamicShadow : MonoBehaviour {
 
 	}
 
+    // Prepares the shadow for Sprite component
 	void SetSprite() {
 		isSprite = true;
 		mySprite = shadow.AddComponent<SpriteRenderer>();
@@ -98,6 +99,7 @@ public class DynamicShadow : MonoBehaviour {
 		mySprite.color = myCol;
 	}
 
+    // Prepares the shadow for Text component
 	void SetText() {
 		isText = true;
 		myText = shadow.AddComponent<Text>();
@@ -109,6 +111,8 @@ public class DynamicShadow : MonoBehaviour {
 		myText.color = myCol;
 	}
 
+    // Sets location of the shadow relative to the original object, using
+    // offset as the basis
 	void SetTransform() {
 		shadow.transform.SetParent(this.transform.parent);
 		Vector3 newPos = this.transform.localPosition;

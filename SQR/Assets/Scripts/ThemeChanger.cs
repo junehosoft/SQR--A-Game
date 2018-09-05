@@ -30,10 +30,12 @@ public class ThemeChanger : MonoBehaviour {
 		if (isChanged) {
 			Debug.Log("Change Theme");
 			tm.ChangeTheme(myTheme);
+            StartCoroutine(DisableToggles());
 			isChanged = false;
 		}
 	}
 
+    // Called by theme toggle to change the active theme
 	public void SelectTheme() {
 		Toggle active = toggleGroup.ActiveToggles().FirstOrDefault();
 		if (active == null)
@@ -47,4 +49,15 @@ public class ThemeChanger : MonoBehaviour {
 			Debug.Log("Changed is " + isChanged);
 		}
 	}
+
+    // disables all the color toggles during transition to avoid bug
+    IEnumerator DisableToggles(){
+        foreach(Toggle t in myToggles)
+        {
+            t.interactable = false;
+        }
+        yield return new WaitForSeconds(1.0f);
+        foreach (Toggle t in myToggles)
+            t.interactable = true;
+    }
 }

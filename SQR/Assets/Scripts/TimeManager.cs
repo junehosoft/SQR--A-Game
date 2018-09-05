@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -50,7 +49,7 @@ public class TimeManager : MonoBehaviour {
 
 		activeTime -= Time.deltaTime;
 		
-		if (!isBlinking && activeTime < maxTime * 0.25f) {
+		if (!isBlinking && activeTime < maxTime * 0.3f) {
 			StartCoroutine(Blink());
 		}
 		// Debug.Log(""+ activeTime);
@@ -81,15 +80,14 @@ public class TimeManager : MonoBehaviour {
 	}
 
 	// add time to timer
-	public void addTime() {
+	public void AddTime() {
 		activeTime += maxTime * 0.1f;
-		Debug.Log("Time Added");
 		if (activeTime >= maxTime) 
 			activeTime = maxTime;
 	}
 
 	// reduce time available
-	public void minusTime() {
+	public void MinusTime() {
 		//iTween.ShakePosition(gameObject, iTween.Hash("x", .1, "time", 0.8));
 		StartCoroutine(Wrong());
 		activeTime -= maxTime * 0.1f;
@@ -99,7 +97,7 @@ public class TimeManager : MonoBehaviour {
 
 
 	// reset the timer to max time
-	public IEnumerator resetTime() {
+	public IEnumerator ResetTime() {
 		timer.color = myCol;
 		// float deltaTime = maxTime - activeTime;
 		activeTime = maxTime;
@@ -110,6 +108,18 @@ public class TimeManager : MonoBehaviour {
 			yield return new WaitForSeconds(0.0167f);
 		}
 	}
+
+    // Sets the max time to 10 seconds
+    public void ResetMax() {
+        maxTime = 10.0f;
+    }
+
+    // Subtracts 0.25 seconds from max time, minimum is 5 seconds
+    public void MinusMax()
+    {
+        float temp = maxTime - 0.25f;
+        maxTime = Mathf.Clamp(temp, 5.0f, 10.0f);
+    }
 
 	// let the timer switch between red and white
 	IEnumerator Blink() {
@@ -127,6 +137,7 @@ public class TimeManager : MonoBehaviour {
 		isBlinking = false;
 	}
 
+    // Sets the color of the timer to red for a little bit
 	IEnumerator Wrong() {
 		timer.color = ColorPicker.RED;
 		yield return new WaitForSeconds(0.5f);

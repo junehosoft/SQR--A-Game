@@ -78,7 +78,7 @@ public class CubeManager : MonoBehaviour {
 		yield return new WaitForSeconds(AnimationTime());
 		// If the swipe was correct, add time
 		if (GameManager.instance.IsCorrect(myPlace, dir)) {
-			TimeManager.myTimer.addTime();
+			TimeManager.myTimer.AddTime();
 			// If all correct motions have been done, update score, reset time, and player turn is false
 			if (GameManager.instance.IsTurnOver()) {
 				GameManager.instance.EndPlayer();
@@ -92,7 +92,7 @@ public class CubeManager : MonoBehaviour {
 
 	// called on wrong move. Shakes cube and subtracts time
 	void WrongMove() {
-		TimeManager.myTimer.minusTime();
+		TimeManager.myTimer.MinusTime();
 		iTween.ShakePosition(gameObject, iTween.Hash("x", .5, "time", 1.0));
 	}
 

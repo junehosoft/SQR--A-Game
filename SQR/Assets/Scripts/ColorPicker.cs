@@ -40,7 +40,7 @@ public class ColorPicker {
 	public static Color LGRN = new Color32(139, 190, 87, 255);
 	public static Color DGRN = new Color32(57, 96, 58, 255);
 
-	public static Color BBRY = new Color32(255, 246, 206, 255);
+	public static Color BBRY = new Color32(255, 238, 186, 255);
 	public static Color LBRY = new Color32(233, 131, 165, 255);
 	public static Color DBRY = new Color32(58, 47, 99, 255);
 

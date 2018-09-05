@@ -8,9 +8,10 @@ public class PointManager : MonoBehaviour {
 	public Text scoreText;
 	public GameObject pointIndicator;
 
-	private int highScore;
+	private int highScore;  // highscore of the player
 	private int score = 0;   // Score of the player
 
+    // Prepares score text on startup
 	public void SetUpScore() {
 		scoreText.text = "" + score;
 		highScore = PlayerPrefsX.GetIntArray("HighScores", 0, 4)[PlayerPrefs.GetInt("Difficulty", 1) - 1];
@@ -25,6 +26,8 @@ public class PointManager : MonoBehaviour {
 		}
 	}
 
+    // Called by gamemanager whenever the player wins a round
+    // Displays a +val about the cubes
 	IEnumerator ShowAdd(int val) {
 		GameObject newPoint = Instantiate(pointIndicator);
 		Text p = newPoint.GetComponentInChildren<Text>();
@@ -33,6 +36,7 @@ public class PointManager : MonoBehaviour {
 		Destroy(newPoint);
 	}
 
+    // Prepares the score for new game
 	public void ResetScore() {
 		score = 0;
 		UpdateScore();

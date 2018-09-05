@@ -27,6 +27,7 @@ public class ThemeManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        // If intransition slowly change the colors between the old and new theme
 		if(inTransition) {
 			t += Time.deltaTime;
 			Color lightCol = Color.Lerp(oldTheme[0], myTheme[0], t);
@@ -87,6 +88,7 @@ public class ThemeManager : MonoBehaviour {
 		StartCoroutine(TransitionTheme());
 	}
 
+    // Prepares the update function for transitioning themes
 	IEnumerator TransitionTheme() {
 		inTransition = true;
 		t = 0f;
@@ -95,6 +97,7 @@ public class ThemeManager : MonoBehaviour {
 		inTransition = false;
 	}
 
+    // Each dynamic shadow changes colors
 	void SetShadows() {
 		foreach(DynamicShadow d in shadows) {
 			d.ChangeColor();

@@ -55,6 +55,7 @@ public class BoardManager : MonoBehaviour {
 		StartCoroutine(PlaceBlocks());
 	}
 
+    //Puts the blocks in the appropriate position
 	IEnumerator PlaceBlocks() {
 		for (int i = 0; i < numCubes; i++) {
 			Debug.Log("index " + i.ToString());
@@ -66,6 +67,7 @@ public class BoardManager : MonoBehaviour {
 		}
 	}
 
+    // Randomizes cubeLocations
 	void Shuffle() {
 		int n = cubeLocations.Count;
 		while (n > 1) {
@@ -77,6 +79,7 @@ public class BoardManager : MonoBehaviour {
 		}
 	}
 
+    // Calls Shuffle and places the cubes in desired locations
 	public void RandomPositions() {
 		Shuffle();
 		int i = 0;
@@ -84,4 +87,14 @@ public class BoardManager : MonoBehaviour {
 			c.ChangeLocation(cubeLocations[i++]);
 		}
 	}
+
+    // Places cubes in their default positions
+    public void ResetPositions() {
+        cubeLocations.Clear();
+        InitialiseProps();
+        int i = 0;
+        foreach (CubeManager c in GameManager.instance.myCubes){
+            c.ChangeLocation(cubeLocations[i++]);
+        }
+    }
 }
